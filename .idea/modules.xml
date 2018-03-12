@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lop.iml" filepath="$PROJECT_DIR$/.idea/modules/lop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lop_main.iml" filepath="$PROJECT_DIR$/.idea/modules/lop_main.iml" group="lop" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lop_test.iml" filepath="$PROJECT_DIR$/.idea/modules/lop_test.iml" group="lop" />
+    </modules>
+  </component>
+</project>
