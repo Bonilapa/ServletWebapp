@@ -11,8 +11,8 @@ public class DataSourceFactory {
     private static DataSource datasource = new DataSource();
     static {
         PoolProperties p = new PoolProperties();
-        p.setUrl("jdbc:mysql://localhost:3306/users");
-        p.setDriverClassName("org.mysql.Driver");
+        p.setUrl("jdbc:mysql://localhost:3306/project");
+        p.setDriverClassName("com.mysql.jdbc.Driver");
         p.setUsername("root");
         p.setPassword("qweewq1");
         p.setJmxEnabled(true);

@@ -12,5 +12,9 @@
   </head>
   <body>
   $END$
+
+  <form method="post" action="/base">
+    <input type="submit" value="login"/>
+  </form>
   </body>
 </html>

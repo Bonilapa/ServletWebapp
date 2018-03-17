@@ -14,12 +14,12 @@ import java.io.IOException;
 @WebServlet(
         name = "login", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
-    private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class);
+    //private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class);
     private static UserServiceImpl userService = new UserServiceImpl() ;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //resp.getWriter().print("lalala");
-        LOGGER.debug("LoginServlet doGet");
+        //LOGGER.debug("LoginServlet doGet");
         req.getRequestDispatcher("/login.jsp").forward(req, resp);
         //resp.sendRedirect("/");
     }
@@ -33,9 +33,12 @@ public class LoginServlet extends HttpServlet {
         //LOGGER.debug("Login servlet");
 
         if(userService.auth(login, password) != null) {
-            req.getSession().setAttribute("userLogin", login);
-            resp.sendRedirect(req.getContextPath() + "/listStudents");
+            req.getSession().setAttribute("login", login);
+            resp.sendRedirect(req.getContextPath() + "/base");
+            System.out.println("redirect");
         } else {
+
+            System.out.println("redirect");
             resp.sendRedirect(req.getContextPath() + "/error");
         }
     }

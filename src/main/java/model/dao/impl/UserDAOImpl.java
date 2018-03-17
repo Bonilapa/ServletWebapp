@@ -6,24 +6,24 @@ import model.pojo.User;
 import model.utils.DataSourceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+//import org.apache.log4j.PropertyConfigurator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Created by admin on 20.04.2017.
  */
 public class UserDAOImpl implements UserDAO {
-    static {
-        PropertyConfigurator.configure(LoginServlet.class.getClassLoader().getResource("log4j.properties"));
-    }
+//    static {
+//        PropertyConfigurator.configure(LoginServlet.class.getClassLoader().getResource("log4j.properties"));
+//    }
 
-    private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
+    //private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
 
     @Override
     public User findUserByLoginAndPassword(String login, String password) {
@@ -41,13 +41,12 @@ public class UserDAOImpl implements UserDAO {
             user = new User(resultSet.getLong("id"), resultSet.getString("login"),
                     resultSet.getString("password"));
 
-            LOGGER.debug("got user");
-
+            //LOGGER.debug("got user");
             resultSet.close();
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            LOGGER.debug(e);
+            //LOGGER.debug(e);
         }
 
 //        if (group == null) { //TODO Надо что ли?
@@ -64,7 +63,26 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAll() {
-        throw new NotImplementedException();
+        List<User> list = new ArrayList<>();
+        try {
+            Connection connection = DataSourceFactory.getDataSource().getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM users;");
+
+            while (resultSet.next()) {
+                User user = new User(resultSet.getLong("id"), resultSet.getString("login"),
+                        resultSet.getString("password"));
+                list.add(user);
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     @Override
