@@ -1,17 +1,13 @@
-package service;
+package service.impl;
 
-import connector.LoginServlet;
 import model.dao.impl.UserDAOImpl;
-import model.dao.interfaces.UserDAO;
 import model.pojo.User;
 //import org.apache.logging.log4j..PropertyConfigurator;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import service.interfaces.UserService;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
 
 /**
  * Created by admin on 20.04.2017.

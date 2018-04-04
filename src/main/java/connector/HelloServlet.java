@@ -4,7 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import service.UserServiceImpl;
+import service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,6 @@ public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //resp.getWriter().print("lalala");
         LOGGER.debug("HelloServlet doGet");
-        LOGGER.info("------------------------------------------MESSAGE PRINTED0------------------------------------");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
         //resp.sendRedirect("/");
     }
@@ -28,7 +27,7 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //req.setAttribute("list", userService.getAllUsers());
-        System.out.println("sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-        resp.sendRedirect(req.getContextPath() + "/base");
+         req.getSession();
+        resp.sendRedirect(req.getContextPath() + "/tour");
     }
 }

@@ -19,18 +19,6 @@
               <td><c:out value="${user.id}"></c:out></td>
               <td><c:out value="${user.login}"></c:out></td>
               <td><c:out value="${user.password}"></c:out></td>
-              <td>
-                  <form method="post">
-                      <input type="hidden" name="idToEdit" value="${user.id}"/>
-                      <input type="submit" value="Редактировать"/>
-                  </form>
-              </td>
-              <td>
-                  <form method="post">
-                      <input type="hidden" name="idToDelete" value="${user.id}"/>
-                      <input type="submit" value="Удалить"/>
-                  </form>
-              </td>
           </tr>
       </c:forEach>
   </table>

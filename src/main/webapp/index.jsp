@@ -13,7 +13,7 @@
   <body>
   $END$
 
-  <form method="post" action="/base">
+  <form method="post" action="/tour">
     <input type="submit" value="login"/>
   </form>
   </body>

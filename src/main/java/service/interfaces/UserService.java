@@ -1,4 +1,4 @@
-package service;
+package service.interfaces;
 
 import model.dao.interfaces.UserDAO;
 import model.pojo.User;

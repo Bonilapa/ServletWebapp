@@ -8,5 +8,5 @@ public interface UserDAO extends DAO<User, Long> {
     User findUserByLoginAndPassword(String login, String password);
 
     @Override
-     List<User> getAll();
+    List<User> getAll();
 }

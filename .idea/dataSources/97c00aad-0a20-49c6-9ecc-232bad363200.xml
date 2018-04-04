@@ -809,38 +809,77 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="204" parent="5" name="users">
+    <table id="204" parent="5" name="tours">
       <Engine>InnoDB</Engine>
     </table>
-    <column id="205" parent="204" name="ID">
+    <table id="205" parent="5" name="users">
+      <Engine>InnoDB</Engine>
+    </table>
+    <column id="206" parent="204" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="206" parent="204" name="Login">
+    <column id="207" parent="204" name="NAME">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="208" parent="204" name="PRICE">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="209" parent="204" name="DATE">
+      <Position>4</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="210" parent="204" name="description">
+      <Position>5</Position>
+      <DataType>varchar(2000)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="211" parent="204" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="212" parent="205" name="ID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="213" parent="205" name="Login">
       <Position>2</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="207" parent="204" name="Password">
+    <column id="214" parent="205" name="Password">
       <Position>3</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="208" parent="204" name="Users_Login_uindex">
+    <index id="215" parent="205" name="Users_Login_uindex">
       <ColNames>Login</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="209" parent="204" name="PRIMARY">
+    <key id="216" parent="205" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="210" parent="204" name="Users_Login_uindex">
+    <key id="217" parent="205" name="Users_Login_uindex">
       <ColNames>Login</ColNames>
       <UnderlyingIndexName>Users_Login_uindex</UnderlyingIndexName>
     </key>

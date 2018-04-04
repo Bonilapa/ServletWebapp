@@ -1,8 +1,7 @@
 package connector;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import service.UserServiceImpl;
+import service.impl.LoginServiceImpl;
+import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +15,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     //private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class);
     private static UserServiceImpl userService = new UserServiceImpl() ;
+    private static LoginServiceImpl loginService = new LoginServiceImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //resp.getWriter().print("lalala");
@@ -26,20 +26,17 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-
-        //LOGGER.debug("Login servlet");
-
-        if(userService.auth(login, password) != null) {
-            req.getSession().setAttribute("login", login);
-            resp.sendRedirect(req.getContextPath() + "/base");
-            System.out.println("redirect");
-        } else {
-
-            System.out.println("redirect");
-            resp.sendRedirect(req.getContextPath() + "/error");
-        }
+//        super.doPost(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/tour");
+//        String login = req.getParameter("login");
+//        String password = req.getParameter("password");
+//
+//        //LOGGER.debug("Login servlet");
+//        if(loginService.auth(login, password) == null) {
+//            req.getSession().setAttribute("login", login);
+//
+//        } else {
+//            resp.sendRedirect(req.getContextPath() + "/error");
+//        }
     }
 }

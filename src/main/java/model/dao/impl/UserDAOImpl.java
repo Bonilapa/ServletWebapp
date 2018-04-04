@@ -23,7 +23,7 @@ public class UserDAOImpl implements UserDAO {
 //        PropertyConfigurator.configure(LoginServlet.class.getClassLoader().getResource("log4j.properties"));
 //    }
 
-    //private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
 
     @Override
     public User findUserByLoginAndPassword(String login, String password) {

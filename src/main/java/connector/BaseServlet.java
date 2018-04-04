@@ -2,10 +2,11 @@ package connector;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import org.apache.logging.log4j.Logger;
+
 import org.apache.logging.log4j.LogManager;
-import service.UserService;
-import service.UserServiceImpl;
+import org.apache.logging.log4j.Logger;
+import service.interfaces.UserService;
+import service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ import java.io.IOException;
         name = "base", urlPatterns = {"/base"})
 public class BaseServlet extends HttpServlet {
     private static UserService userService = new UserServiceImpl();
-    //private static final Logger LOGGER = LogManager.getLogger(HelloServlet.class);
+    private static final Logger LOGGER = LogManager.getLogger(HelloServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,6 +26,8 @@ public class BaseServlet extends HttpServlet {
         //req.setAttribute("list", userService.getAllUsers());
         //getServletContext().getRequestDispatcher("/listStudents.jsp").forward(req, resp);
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
+
+        //req.setAttribute("list", userService.getAllUsers());
         //resp.sendRedirect("/");
     }
 
