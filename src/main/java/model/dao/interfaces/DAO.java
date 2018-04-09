@@ -13,7 +13,7 @@ public interface DAO<E, PK> {
 
     E save(E entity);
 
-    PK insert(E entity);
+    void insert(E entity);
 
     int update(E entity);
 

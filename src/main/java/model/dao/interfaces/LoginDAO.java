@@ -8,4 +8,6 @@ public interface LoginDAO extends DAO<User, Long> {
     User getUserByLoginAndPassword(String login, String password);
     @Override
     List<User> getAll();
+    @Override
+    void insert(User entity);
 }

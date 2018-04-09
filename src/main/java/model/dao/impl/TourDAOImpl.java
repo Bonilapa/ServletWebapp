@@ -101,7 +101,7 @@ public class TourDAOImpl implements TourDAO{
     }
 
     @Override
-    public Integer insert(Tour entity) {
+    public void insert(Tour entity) {
         throw new NotImplementedException();
     }
 

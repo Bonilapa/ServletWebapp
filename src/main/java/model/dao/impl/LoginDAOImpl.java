@@ -29,7 +29,7 @@ public class LoginDAOImpl implements LoginDAO {
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();
-            user = new User(resultSet.getLong("id"), resultSet.getString("login"),
+            user = new User(resultSet.getInt("id"), resultSet.getString("login"),
                     resultSet.getString("password"));
 
             LOGGER.debug("Attempt to take user "+login+" from table Users");
@@ -50,7 +50,7 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     @Override
-    public Long insert(User entity) {
+    public void insert(User entity) {
         throw new NotImplementedException();
     }
 

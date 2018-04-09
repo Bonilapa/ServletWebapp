@@ -11,12 +11,14 @@
   <title>Login</title>
 </head>
 <body>
-<form method="post" action="/tour">
+<form method="post" action="/login">
+  <input type="hidden" name="getDescription" value="1"/>
   <input type="text" name="login" /><br>
   <input type="text" name="password"/><br>
   <input type="submit" value="login"/>
 </form>
-<form method="post" action="/register">
+<form method="post" action="/login">
+  <input type="hidden" name="getDescription" value="2"/>
 <input type="submit" value="Sign up"/>
 </form>
 </body>

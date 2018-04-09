@@ -1,5 +1,6 @@
 package connector;
 
+import model.pojo.Tour;
 import service.impl.LoginServiceImpl;
 import service.impl.UserServiceImpl;
 
@@ -27,7 +28,33 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        super.doPost(req, resp);
-        resp.sendRedirect(req.getContextPath() + "/tour");
+        //boolean validationFailed = false;
+        //resp.sendRedirect(req.getContextPath() + "/tour");
+        Integer where = 0;
+        String getDescription = req.getParameter("getDescription");
+        //System.out.println(getDescription);
+
+        System.out.println(where);
+        if(getDescription != null){
+            try {
+                where = Integer.parseInt(getDescription);
+            } catch (NumberFormatException ex){
+                //LOGGER.debug("StudentServlet doGet idToEdit = " + getDescription);
+                //validationFailed = true;
+            }
+            System.out.println(where);
+            if(where == 1) {
+                getServletContext().getRequestDispatcher("/tours.jsp").forward(req, resp);
+                return;
+            }else if(where == 2) {
+                resp.sendRedirect(req.getContextPath() + "/register");
+            }
+            //System.out.println("333333333");
+
+            //System.out.println("5555555");
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/login");
+        }
 //        String login = req.getParameter("login");
 //        String password = req.getParameter("password");
 //

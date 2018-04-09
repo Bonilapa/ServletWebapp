@@ -35,4 +35,15 @@ public class UserServiceImpl implements UserService {
         //System.setProperty("log4j2.debug", "http://gate.ac.uk/wiki/code-repository");
         return userDAO.getAll();
     }
+    @Override
+    public Integer addUser(User user) {
+        if (user.getPassword() != "" && user.getLogin() != "") {
+            userDAO.insert(user);
+            return 0;
+        }else if(user.getLogin() == ""){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
 }

@@ -37,11 +37,10 @@ public class TourServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String getDescription = req.getParameter("getDescription");
-        System.out.println(getDescription);
+        //System.out.println(getDescription);
         if(getDescription != null){
-            System.out.println("2222222");
+            //.out.println("2222222");
             boolean validationFailed = false;
             Integer id = -1001;
             try {
@@ -64,7 +63,7 @@ public class TourServlet extends HttpServlet {
                 tour = tourService.getTourById(id);
             }
 
-            System.out.println("333333333");
+            //System.out.println("333333333");
             if (tour != null) {
                 req.setAttribute("name", tour.getName());
                 req.setAttribute("price", tour.getPrice());
@@ -78,7 +77,7 @@ public class TourServlet extends HttpServlet {
             }
 
             getServletContext().getRequestDispatcher("/tour.jsp").forward(req, resp);
-            System.out.println("5555555");
+            //System.out.println("5555555");
         } else {
             resp.sendRedirect(req.getContextPath() + "/tour");
         }

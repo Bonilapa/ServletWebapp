@@ -5,13 +5,19 @@ package model.pojo;
  */
 public class User {
 
-    private long id;
+    private Integer id;
     private String login;
     private String password;
 
-    public User(long id, String login, String password){
+    public User(Integer id, String login, String password){
 
         this.id = id;
+        this.login = login;
+        this.password = password;
+    }
+    public User(String login, String password){
+
+        this.id = null;
         this.login = login;
         this.password = password;
     }

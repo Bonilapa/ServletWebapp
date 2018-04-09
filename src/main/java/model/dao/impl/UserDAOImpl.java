@@ -38,7 +38,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();
-            user = new User(resultSet.getLong("id"), resultSet.getString("login"),
+            user = new User(resultSet.getInt("id"), resultSet.getString("login"),
                     resultSet.getString("password"));
 
             //LOGGER.debug("got user");
@@ -57,7 +57,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getById(Long id) {
+    public User getById(Integer id) {
         throw new NotImplementedException();
     }
 
@@ -70,7 +70,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM users;");
 
             while (resultSet.next()) {
-                User user = new User(resultSet.getLong("id"), resultSet.getString("login"),
+                User user = new User(resultSet.getInt("id"), resultSet.getString("login"),
                         resultSet.getString("password"));
                 list.add(user);
             }
@@ -91,8 +91,21 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Long insert(User entity) {
-        throw new NotImplementedException();
+    public void insert(User entity) {
+        String sql = "INSERT INTO users(Login, Password) VALUES (?, ?);";
+        try {
+            Connection connection = DataSourceFactory.getDataSource().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, entity.getLogin());
+            statement.setString(2, entity.getPassword());
+            System.out.println(entity.getLogin());
+            System.out.println(entity.getPassword());
+            Boolean bol = statement.execute();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
