@@ -12,6 +12,13 @@
     <title>$Tours$</title>
 </head>
 <body>
+<div>
+    Hello, <c:out value = "${userName}"></c:out>
+    <form method="post">
+        <input type="hidden" name="dislogin" value="dislogin">
+          <input type = "submit" value = "Dislogin"/>
+    </form>
+</div>
 Tours:
 <table>
     <c:forEach items="${requestScope.list}" var="tour">

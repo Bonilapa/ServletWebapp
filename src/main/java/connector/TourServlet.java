@@ -31,55 +31,60 @@ public class TourServlet extends HttpServlet {
 
         //req.setAttribute("list", userService.getAllUsers());
         //resp.sendRedirect("/");
-         req.setAttribute("list", tourService.getAllTours());
+        req.setAttribute("list", tourService.getAllTours());
+//         req.setAttribute("userName", req.getSession().getAttribute("userName"));
          getServletContext().getRequestDispatcher("/tours.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String getDescription = req.getParameter("getDescription");
-        //System.out.println(getDescription);
-        if(getDescription != null){
-            //.out.println("2222222");
-            boolean validationFailed = false;
-            Integer id = -1001;
-            try {
-                id = Integer.parseInt(getDescription);
-            } catch (NumberFormatException ex){
-                //LOGGER.debug("StudentServlet doGet idToEdit = " + getDescription);
-                validationFailed = true;
-            }
 
-            if (id < -1000)
-                validationFailed = true;
+        String dislogin = req.getParameter("dislogin");
+        if(dislogin!=null){
+            req.getSession().removeAttribute("userName");
+            resp.sendRedirect(req.getContextPath()+"/login");
+        }else {
+            if (getDescription != null) {
+                boolean validationFailed = false;
+                Integer id = -1001;
+                try {
+                    id = Integer.parseInt(getDescription);
+                } catch (NumberFormatException ex) {
+                    //LOGGER.debug("StudentServlet doGet idToEdit = " + getDescription);
+                    validationFailed = true;
+                }
 
-            if(validationFailed){
-                resp.sendRedirect(req.getContextPath() + "/error");
-                return;
-            }
+                if (id < -1000)
+                    validationFailed = true;
 
-            Tour tour = null;
-            if(id>0){
-                tour = tourService.getTourById(id);
-            }
+                if (validationFailed) {
+                    resp.sendRedirect(req.getContextPath() + "/error");
+                    return;
+                }
 
-            //System.out.println("333333333");
-            if (tour != null) {
-                req.setAttribute("name", tour.getName());
-                req.setAttribute("price", tour.getPrice());
-                req.setAttribute("date", tour.getDate());
-                req.setAttribute("description", tour.getDescription());
+                Tour tour = null;
+                if (id > 0) {
+                    tour = tourService.getTourById(id);
+                }
+
+                if (tour != null) {
+                    req.setAttribute("name", tour.getName());
+                    req.setAttribute("price", tour.getPrice());
+                    req.setAttribute("date", tour.getDate());
+                    req.setAttribute("description", tour.getDescription());
+                } else {
+
+                    req.setAttribute("name", "");
+                    req.setAttribute("age", "");
+                    req.setAttribute("groupId", "");
+                }
+
+                getServletContext().getRequestDispatcher("/tour.jsp").forward(req, resp);
+                //System.out.println("5555555");
             } else {
-
-                req.setAttribute("name", "");
-                req.setAttribute("age", "");
-                req.setAttribute("groupId", "");
+                resp.sendRedirect(req.getContextPath() + "/tour");
             }
-
-            getServletContext().getRequestDispatcher("/tour.jsp").forward(req, resp);
-            //System.out.println("5555555");
-        } else {
-            resp.sendRedirect(req.getContextPath() + "/tour");
         }
     }
 }

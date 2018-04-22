@@ -15,7 +15,7 @@ public class LoginServiceImpl implements LoginService{
     private LoginDAOImpl loginDAO = new LoginDAOImpl();
     private UserDAOImpl userDAO = new UserDAOImpl();
     @Override
-    public User auth(String login, String password){
+    public String auth(String login, String password){
         User user = loginDAO.getUserByLoginAndPassword(login, password);
 
         LOGGER.debug("user: " + user);
@@ -24,6 +24,6 @@ public class LoginServiceImpl implements LoginService{
         }
         LOGGER.debug(" exists ");
         System.out.println("exists");
-        return user;
+        return user.getLogin();
     }
 }

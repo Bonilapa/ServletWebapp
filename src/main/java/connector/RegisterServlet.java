@@ -17,8 +17,9 @@ import java.io.IOException;
         name = "register", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class);
-    private static UserServiceImpl userService = new UserServiceImpl() ;
+    private static UserServiceImpl userService = new UserServiceImpl();
     private static LoginServiceImpl loginService = new LoginServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/register.jsp").forward(req, resp);
@@ -27,7 +28,10 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = new User(req.getParameter("login"), req.getParameter("password"));
-        userService.addUser(user);
-        resp.sendRedirect(req.getContextPath() + "/login");
+        Integer state = userService.addUser(user);
+        if (state == 0) {
+            req.getSession().setAttribute("userName", user.getLogin());
+            resp.sendRedirect(req.getContextPath() + "/tour");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package service.impl;
 
+import model.dao.impl.LoginDAOImpl;
 import model.dao.impl.UserDAOImpl;
 import model.pojo.User;
 //import org.apache.logging.log4j..PropertyConfigurator;
@@ -16,9 +17,9 @@ public class UserServiceImpl implements UserService {
 //    static {
 //        PropertyConfigurator.configure(LoginServlet.class.getClassLoader().getResource("log4j.properties"));
 //    }
-    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
+private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
+    private LoginDAOImpl loginDAO = new LoginDAOImpl();
     private UserDAOImpl userDAO = new UserDAOImpl();
-
     @Override
     public User auth(String login, String password) {
         User user = userDAO.findUserByLoginAndPassword(login, password);
@@ -37,13 +38,19 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public Integer addUser(User user) {
-        if (user.getPassword() != "" && user.getLogin() != "") {
-            userDAO.insert(user);
-            return 0;
-        }else if(user.getLogin() == ""){
-            return 1;
-        }else{
+        if(user.getLogin() == ""){
             return -1;
         }
+        if (user.getPassword() != "" && user.getLogin() != "") {
+            //-----------------check if exist
+            User isUser = loginDAO.getUserByLogin(user.getLogin());
+            if(isUser == null) {
+                userDAO.insert(user);
+                return 0;
+            }else{
+                return null;
+            }
+        }
+        return 1;
     }
 }

@@ -41,6 +41,30 @@ public class LoginDAOImpl implements LoginDAO {
         }
         return user;
     }
+    @Override
+    public User getUserByLogin(String login){
+        User user = null;
+        String sql = "SELECT * FROM Users WHERE Login = ?;";
+
+        try {
+            Connection connection = DataSourceFactory.getDataSource().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+            user = new User(resultSet.getInt("id"), resultSet.getString("login"),
+                    resultSet.getString("password"));
+
+            LOGGER.debug("Attempt to take user "+login+" from table Users");
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            LOGGER.debug(e);
+        }
+        return user;
+    }
 
     @Override
     public List<User> getAll(){throw new NotImplementedException();}
