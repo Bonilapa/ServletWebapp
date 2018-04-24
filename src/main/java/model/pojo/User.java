@@ -15,6 +15,7 @@ public class User {
         this.login = login;
         this.password = password;
     }
+
     public User(String login, String password){
 
         this.id = null;
@@ -33,4 +34,5 @@ public class User {
     public String getPassword() {
         return password;
     }
+
 }

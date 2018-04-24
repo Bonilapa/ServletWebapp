@@ -9,17 +9,22 @@ import service.interfaces.TourService;
 import java.util.List;
 
 public class TourServiceImpl implements TourService {
-    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
+
+    private static final Logger LOGGER = LogManager.getLogger(TourServiceImpl.class);
     private TourDAOImpl tourDAO = new TourDAOImpl();
 
     @Override
     public List<Tour> getAllTours(){
-        //System.setProperty("log4j2.debug", "http://gate.ac.uk/wiki/code-repository");
+
+        LOGGER.debug("TourService. getAllTours.");
         return tourDAO.getAll();
     }
 
     @Override
     public Tour getTourById(int id) {
+
+        LOGGER.debug("TourService. getTourById: " + id);
         return tourDAO.getById(id);
     }
+
 }

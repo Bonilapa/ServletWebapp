@@ -14,43 +14,44 @@ import java.util.List;
  * Created by admin on 20.04.2017.
  */
 public class UserServiceImpl implements UserService {
-//    static {
-//        PropertyConfigurator.configure(LoginServlet.class.getClassLoader().getResource("log4j.properties"));
-//    }
-private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
+
+    private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
     private LoginDAOImpl loginDAO = new LoginDAOImpl();
     private UserDAOImpl userDAO = new UserDAOImpl();
-    @Override
-    public User auth(String login, String password) {
-        User user = userDAO.findUserByLoginAndPassword(login, password);
 
-        LOGGER.debug("user: " + user);
-        if((user != null)){
-            return null;
-        }
-        LOGGER.debug("user not blocked ");
-        return user;
-    }
-    @Override
-    public List<User> getAllUsers(){
-        //System.setProperty("log4j2.debug", "http://gate.ac.uk/wiki/code-repository");
-        return userDAO.getAll();
-    }
     @Override
     public Integer addUser(User user) {
+
+        LOGGER.debug("UserService. addUser.");
+
         if(user.getLogin() == ""){
+
+            LOGGER.debug("Empty login put.");
             return -1;
-        }
-        if (user.getPassword() != "" && user.getLogin() != "") {
-            //-----------------check if exist
+
+        }else if(user.getPassword() == ""){
+
+            LOGGER.debug("Empty password put.");
+            return 1;
+
+        }else{
+
             User isUser = loginDAO.getUserByLogin(user.getLogin());
+
             if(isUser == null) {
+
+                LOGGER.debug("Add new user:" + user.getLogin());
                 userDAO.insert(user);
                 return 0;
+
             }else{
+
+                LOGGER.debug("User: " + user.getLogin() + " is already exists.");
                 return null;
             }
+
         }
-        return 1;
+
     }
+
 }

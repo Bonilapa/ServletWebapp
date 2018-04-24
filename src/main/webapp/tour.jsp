@@ -12,6 +12,19 @@
     <title>$Tours$</title>
 </head>
 <body>
+<div>
+    Hello, <c:out value = "${userName}"></c:out>
+    <form method="post">
+        <input type="hidden" name="dislogin" value="dislogin">
+        <input type = "submit" value = "Dislogin"/>
+    </form>
+</div>
+<p>Map:</p>
+<p><a href="/tour" method="post" name="getDescription" value="tour">Tours</a></p>
+<p><a href="/order" method="post" name="getDescription" value="order">Orders</a></p>
+<p><a href="/hello" method="post" name="getDescription" value="hello">Index</a></p>
+<p><a href="/login" method="post" name="getDescription" value="login">Login</a></p>
+<p><a href="/register" method="post" name="getDescription" value="register">Register</a></p>
 Chosen tour:
 <table>
     <tr><td>Tour name:</td><td><c:out value="${name}"></c:out></td> </tr>
@@ -19,6 +32,13 @@ Chosen tour:
             <tr><td>Tour price:</td><td><br><c:out value="${price}"></c:out></td></tr>
             <tr><td>Tour Date:</td><td><br><c:out value="${date}"></c:out></td></tr>
             <tr><td>Tour Description:</td><td><br><c:out value="${description}"></c:out></td></tr>
+            <tr><td>
+                <form method="post">
+                    <input type="hidden" name="act" value="${userId}" >
+                    <input type="hidden" name="tId" value="${tourId}" >
+                    <input type = "submit" value = "Order"/>
+                </form>
+            </td></tr>
 
 </table>
 </body>

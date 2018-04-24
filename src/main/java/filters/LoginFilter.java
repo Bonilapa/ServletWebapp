@@ -1,21 +1,20 @@
 package filters;
 
+
 import connector.HelloServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(value="/tour")
-public class TourFilter implements Filter {
+@WebFilter(value="/login")
+public class LoginFilter implements Filter {
 
-    private static final Logger LOGGER = LogManager.getLogger(TourFilter.class);
-
+    private static final Logger LOGGER = LogManager.getLogger(LoginFilter.class);
 
     @Override
     public void doFilter(ServletRequest servletRequest,
@@ -25,9 +24,9 @@ public class TourFilter implements Filter {
         String userLogin = (String) ((HttpServletRequest) servletRequest)
                 .getSession().getAttribute("userName");
 
-        if (userLogin != null) {
+        if (userLogin == null) {
 
-            LOGGER.debug("OrderFilter. userLogin = " + userLogin);
+            LOGGER.debug("LoginFilter. userLogin = null");
 
             try {
 
@@ -35,33 +34,36 @@ public class TourFilter implements Filter {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException. TourFilter.doFilter().");
+                LOGGER.error("IOException. LoginFilter.doFilter().");
                 e.printStackTrace();
+
             } catch (ServletException e) {
 
-                LOGGER.error("ServletException. TourFilter.doFilter().");
+                LOGGER.error("ServletException. LoginFilter.doFilter().");
                 e.printStackTrace();
             }
 
-        } else {
+        }else{
 
-            LOGGER.debug("LoginFilter. userLogin = null");
+            LOGGER.debug("LoginFilter. userLogin = " + userLogin);
 
             try {
 
-                ((HttpServletResponse) servletResponse)
-                        .sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + "/login");
+                ((HttpServletResponse)servletResponse)
+                        .sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + "/index");
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException. TourFilter redirects to /login.");
+                LOGGER.error("IOException. LoginFilter redirects to /index.");
                 e.printStackTrace();
             }
+
         }
+
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig){
 
     }
 
@@ -69,4 +71,5 @@ public class TourFilter implements Filter {
     public void destroy() {
 
     }
+
 }

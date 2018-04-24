@@ -16,12 +16,13 @@
 <div>
   <c:out value = "${errorMessage}"></c:out>
 </div>
+<p><a href="/hello" method="post" name="getDescription" value="hello">Index</a></p>
 <form method="post" action="/login">
   <input type="text" name="login" /><br>
   <input type="text" name="password"/><br>
   <input type="submit" value="login"/>
 </form>
-<form method="post" action="/register">
+<form method="get" action="/register">
 <input type="submit" value="Sign up"/>
 </form>
 </body>

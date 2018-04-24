@@ -5,6 +5,7 @@ import model.pojo.User;
 import java.util.List;
 
 public interface UserDAO extends DAO<User, Integer> {
+
     User findUserByLoginAndPassword(String login, String password);
 
     @Override

@@ -809,77 +809,104 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="204" parent="5" name="tours">
+    <table id="204" parent="5" name="orders">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="205" parent="5" name="users">
+    <table id="205" parent="5" name="tours">
       <Engine>InnoDB</Engine>
     </table>
-    <column id="206" parent="204" name="ID">
+    <table id="206" parent="5" name="users">
+      <Engine>InnoDB</Engine>
+    </table>
+    <column id="207" parent="204" name="orderId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="207" parent="204" name="NAME">
+    <column id="208" parent="204" name="tourId">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="209" parent="204" name="userId">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="210" parent="204" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>orderId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="211" parent="205" name="ID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="212" parent="205" name="NAME">
       <Position>2</Position>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="208" parent="204" name="PRICE">
+    <column id="213" parent="205" name="PRICE">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="209" parent="204" name="DATE">
+    <column id="214" parent="205" name="DATE">
       <Position>4</Position>
       <DataType>date|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="210" parent="204" name="description">
+    <column id="215" parent="205" name="description">
       <Position>5</Position>
       <DataType>varchar(2000)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="211" parent="204" name="PRIMARY">
+    <key id="216" parent="205" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="212" parent="205" name="ID">
+    <column id="217" parent="206" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="213" parent="205" name="Login">
+    <column id="218" parent="206" name="Login">
       <Position>2</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="214" parent="205" name="Password">
+    <column id="219" parent="206" name="Password">
       <Position>3</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="215" parent="205" name="Users_Login_uindex">
+    <index id="220" parent="206" name="Users_Login_uindex">
       <ColNames>Login</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="216" parent="205" name="PRIMARY">
+    <key id="221" parent="206" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="217" parent="205" name="Users_Login_uindex">
+    <key id="222" parent="206" name="Users_Login_uindex">
       <ColNames>Login</ColNames>
       <UnderlyingIndexName>Users_Login_uindex</UnderlyingIndexName>
     </key>

@@ -15,13 +15,17 @@ import java.util.List;
 
 public class LoginDAOImpl implements LoginDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(LoginDAOImpl.class);
+
     @Override
     public User getUserByLoginAndPassword(String login, String password) {
+
+
         User user = null;
         String sql = "SELECT * FROM Users WHERE Login = ? AND Password = ?;";
 
         try {
+
             Connection connection = DataSourceFactory.getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
@@ -43,6 +47,9 @@ public class LoginDAOImpl implements LoginDAO {
     }
     @Override
     public User getUserByLogin(String login){
+
+        LOGGER.debug("LoginDAO. getUserById.");
+
         User user = null;
         String sql = "SELECT * FROM Users WHERE Login = ?;";
 
@@ -50,24 +57,31 @@ public class LoginDAOImpl implements LoginDAO {
             Connection connection = DataSourceFactory.getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
+
+            LOGGER.debug("Take user " + login + " from table Users");
+
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();
             user = new User(resultSet.getInt("id"), resultSet.getString("login"),
                     resultSet.getString("password"));
 
-            LOGGER.debug("Attempt to take user "+login+" from table Users");
+
             resultSet.close();
             statement.close();
             connection.close();
+
         } catch (SQLException e) {
-            LOGGER.debug(e);
+
+            LOGGER.error(e);
         }
+
         return user;
     }
 
     @Override
     public List<User> getAll(){throw new NotImplementedException();}
+
     @Override
     public User save(User entity) {
         throw new NotImplementedException();
@@ -92,4 +106,5 @@ public class LoginDAOImpl implements LoginDAO {
     public User getById(Long id) {
         throw new NotImplementedException();
     }
+
 }

@@ -1,8 +1,9 @@
 package connector;
 
-import model.pojo.Tour;
+import model.pojo.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import service.impl.LoginServiceImpl;
-import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,29 +15,75 @@ import java.io.IOException;
 @WebServlet(
         name = "login", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
-    //private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class);
-    private static UserServiceImpl userService = new UserServiceImpl();
+
+    private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class);
     private static LoginServiceImpl loginService = new LoginServiceImpl();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //resp.getWriter().print("lalala");
-        //LOGGER.debug("LoginServlet doGet");
-        req.getRequestDispatcher("/login.jsp").forward(req, resp);
-        //resp.sendRedirect("/");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+
+        LOGGER.debug("LoginServlet doGet.");
+
+        try {
+
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
+
+        } catch (ServletException e) {
+
+            LOGGER.error("ServletException when LoginServlet forwards to /login.jsp.");
+            e.printStackTrace();
+
+        } catch (IOException e) {
+
+            LOGGER.error("IOEException when LoginServlet forwards to /login.jsp.");
+            e.printStackTrace();
+        }
+
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doPost(req, resp);
-        String userName = loginService.auth(req.getParameter("login"), req.getParameter("password"));
-        if (userName != null) {
-            req.getSession().setAttribute("userName", userName);
-            resp.sendRedirect("/tour");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+
+        LOGGER.debug("LoginServlet doGet.");
+
+        User user = loginService.auth(req.getParameter("login"), req.getParameter("password"));
+
+        if (user != null && user.getLogin() != null) {
+
+            req.getSession().setAttribute("userName", user.getLogin());
+            req.getSession().setAttribute("userId", user.getId());
+
+            try {
+
+                resp.sendRedirect("/tour");
+
+            } catch (IOException e) {
+
+                LOGGER.error("IOException when LoginServlet redirects to /tour.");
+                e.printStackTrace();
+            }
+
         } else {
+
             req.setAttribute("errorMessage", new String("Incorrect login or password."));
-            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+
+            try {
+
+                getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+
+            } catch (ServletException e) {
+
+                LOGGER.error("ServletException when LoginServlet forwards to /login.jsp.");
+                e.printStackTrace();
+
+            } catch (IOException e) {
+
+                LOGGER.error("IOEException when LoginServlet forwards to /login.jsp.");
+                e.printStackTrace();
+            }
 
         }
+
     }
+
 }

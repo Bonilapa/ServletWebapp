@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Bonilapa
@@ -11,10 +12,17 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
-
-  <form method="post" action="/tour">
-    <input type="submit" value="login"/>
-  </form>
+  <div>
+    Hello, <c:out value = "${userName}"></c:out>
+    <form method="post">
+      <input type="hidden" name="dislogin" value="dislogin">
+      <input type = "submit" value = "Dislogin"/>
+    </form>
+  </div>
+  Tour agency start page.
+  <p><a href="/tour" method="post" name="getDescription" value="tour">Tour</a></p>
+  <p><a href="/order" method="post" name="getDescription" value="order">Orders</a></p>
+  <p><a href="/login" method="post" name="getDescription" value="login">Login</a></p>
+  <p><a href="/register" method="post" name="getDescription" value="register">Register</a></p>
   </body>
 </html>

@@ -14,20 +14,87 @@ import java.io.IOException;
 @WebServlet(
         name = "hello", urlPatterns = {"/"})
 public class HelloServlet extends HttpServlet {
+
     private static final Logger LOGGER = LogManager.getLogger(HelloServlet.class);
-        private static UserServiceImpl userService = new UserServiceImpl() ;
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //resp.getWriter().print("lalala");
-        LOGGER.debug("HelloServlet doGet");
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
-        //resp.sendRedirect("/");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+
+        LOGGER.debug("HelloServlet doGet.");
+
+        String dislogin = req.getParameter("dislogin");
+
+        if(dislogin!=null){
+
+            req.getSession().removeAttribute("userName");
+
+            try {
+
+                resp.sendRedirect(req.getContextPath()+"/login");
+
+            } catch (IOException e) {
+
+                LOGGER.error("IOEEXception when HelleServlet redirects to /login.");
+                e.printStackTrace();
+
+            }
+        }else {
+            try {
+
+                req.getRequestDispatcher("/index.jsp").forward(req, resp);
+
+            } catch (IOException e) {
+
+                LOGGER.error("IOException when HelloServlet forwards to index.jsp dispatcher.");
+                e.printStackTrace();
+
+            } catch (ServletException e) {
+
+                LOGGER.error("ServletException when HelloServlet forwards to index.jsp dispatcher.");
+                e.printStackTrace();
+
+            }
+
+        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //req.setAttribute("list", userService.getAllUsers());
-         req.getSession();
-        resp.sendRedirect(req.getContextPath() + "/tour");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+
+        LOGGER.debug("HelloServlet doPost.");
+
+        String dislogin = req.getParameter("dislogin");
+
+        if(dislogin!=null){
+
+            req.getSession().removeAttribute("userName");
+
+            try {
+
+                resp.sendRedirect(req.getContextPath()+"/login");
+
+            } catch (IOException e) {
+
+                LOGGER.error("IOException when HelloServlet redirects to /login.");
+                e.printStackTrace();
+
+            }
+
+        }else {
+
+            try {
+
+                resp.sendRedirect(req.getContextPath() + "/tour");
+
+            } catch (IOException e) {
+
+                LOGGER.error("IOException when HelloServlet redirects to /tour.");
+                e.printStackTrace();
+
+            }
+
+        }
+
     }
+
 }

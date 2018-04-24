@@ -19,41 +19,67 @@ import java.util.logging.Level;
  * Created by admin on 20.04.2017.
  */
 public class UserDAOImpl implements UserDAO {
-//    static {
-//        PropertyConfigurator.configure(LoginServlet.class.getClassLoader().getResource("log4j.properties"));
-//    }
 
     private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
 
     @Override
     public User findUserByLoginAndPassword(String login, String password) {
+
+        LOGGER.debug("UserDAO. findUserByLoginAndPassword.");
+
         User user = null;
         String sql = "SELECT * FROM Users WHERE Login = ? AND Password = ?;";
 
         try {
+
             Connection connection = DataSourceFactory.getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
             statement.setString(2, password);
+
+            LOGGER.debug("Get user with login: " + login + "; and password: " + password + "; from Users");
+
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();
             user = new User(resultSet.getInt("id"), resultSet.getString("login"),
                     resultSet.getString("password"));
 
-            //LOGGER.debug("got user");
             resultSet.close();
             statement.close();
             connection.close();
+
         } catch (SQLException e) {
-            //LOGGER.debug(e);
+
+            LOGGER.error(e);
         }
 
-//        if (group == null) { //TODO Надо что ли?
-//            throw new SQLException("Record with PK = " + id + " not found.");
-//        }
-
         return user;
+    }
+
+    @Override
+    public void insert(User entity) {
+
+        LOGGER.debug("UserDAO. insert.");
+        String sql = "INSERT INTO users(Login, Password) VALUES (?, ?);";
+
+        try {
+
+            Connection connection = DataSourceFactory.getDataSource().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, entity.getLogin());
+            statement.setString(2, entity.getPassword());
+
+            LOGGER.debug("Set user with login: " + entity.getLogin() + "; and password: " + entity.getPassword() + "; into Users");
+
+            statement.execute();
+
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+
+            LOGGER.error(e);
+        }
     }
 
     @Override
@@ -63,49 +89,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAll() {
-        List<User> list = new ArrayList<>();
-        try {
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users;");
-
-            while (resultSet.next()) {
-                User user = new User(resultSet.getInt("id"), resultSet.getString("login"),
-                        resultSet.getString("password"));
-                list.add(user);
-            }
-
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return list;
+        throw new NotImplementedException();
     }
 
     @Override
     public User save(User entity) {
         throw new NotImplementedException();
-    }
-
-    @Override
-    public void insert(User entity) {
-        String sql = "INSERT INTO users(Login, Password) VALUES (?, ?);";
-        try {
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, entity.getLogin());
-            statement.setString(2, entity.getPassword());
-            System.out.println(entity.getLogin());
-            System.out.println(entity.getPassword());
-            Boolean bol = statement.execute();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -117,4 +106,5 @@ public class UserDAOImpl implements UserDAO {
     public int delete(User entity) {
         throw new NotImplementedException();
     }
+
 }

@@ -11,19 +11,25 @@ import java.util.List;
 
 public class LoginServiceImpl implements LoginService{
 
-    private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(LoginServiceImpl.class);
     private LoginDAOImpl loginDAO = new LoginDAOImpl();
-    private UserDAOImpl userDAO = new UserDAOImpl();
+
     @Override
-    public String auth(String login, String password){
+    public User auth(String login, String password){
+
+        LOGGER.debug("LoginService. auth.");
+
         User user = loginDAO.getUserByLoginAndPassword(login, password);
 
-        LOGGER.debug("user: " + user);
+
         if((user == null)){
+
+            LOGGER.debug("User: "+ login + " does not exist.");
             return null;
         }
-        LOGGER.debug(" exists ");
-        System.out.println("exists");
-        return user.getLogin();
+
+        LOGGER.debug("user: " + user.getLogin());
+        return user;
     }
+
 }

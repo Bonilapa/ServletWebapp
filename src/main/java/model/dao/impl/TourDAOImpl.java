@@ -13,21 +13,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TourDAOImpl implements TourDAO{
-//    static {
-//        PropertyConfigurator.configure(LoginServlet.class.getClassLoader().getResource("log4j.properties"));
-//    }
 
-    private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(TourDAOImpl.class);
 
     @Override
     public Tour getById(Integer id) {
+
+        LOGGER.debug("TourDAO. getById");
+
         Tour tour = null;
         String sql = "SELECT * FROM tours WHERE ID = ?;";
 
         try {
+
             Connection connection = DataSourceFactory.getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
+
+            LOGGER.debug("Get tour with id: " + id + " from Tours");
+
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();
@@ -37,44 +41,64 @@ public class TourDAOImpl implements TourDAO{
                     resultSet.getDate("date"),
                     resultSet.getString("description"));
 
-            //LOGGER.debug("got user");
             resultSet.close();
             statement.close();
             connection.close();
+
         } catch (SQLException e) {
-            //LOGGER.debug(e);
+
+            LOGGER.error(e);
         }
+
         return tour;
     }
 
     @Override
     public int getTourAmount() {
+
+        LOGGER.debug("TourDAO. getTourAmount.");
+
         int tourAmount = 0;
         String sql = "SELECT * FROM table ORDER BY id DESC LIMIT 1";
 
         try {
+
             Connection connection = DataSourceFactory.getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
+
+            LOGGER.debug("Get tour amount from Tours");
+
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();
             tourAmount = resultSet.getInt("id");
-            //LOGGER.debug("got user");
+
             resultSet.close();
             statement.close();
             connection.close();
+
         } catch (SQLException e) {
-            //LOGGER.debug(e);
+
+            LOGGER.debug(e);
         }
+
         return tourAmount;
     }
 
     @Override
     public List<Tour> getAll() {
+
+        LOGGER.debug("TourDAO. getAll.");
+
         List<Tour> list = new ArrayList<>();
+
         try {
+
             Connection connection = DataSourceFactory.getDataSource().getConnection();
             Statement statement = connection.createStatement();
+
+            LOGGER.debug("Get all tours from Tours");
+
             ResultSet resultSet = statement.executeQuery("SELECT * FROM tours;");
 
             while (resultSet.next()) {
@@ -88,8 +112,10 @@ public class TourDAOImpl implements TourDAO{
             resultSet.close();
             statement.close();
             connection.close();
+
         } catch (SQLException e) {
-            e.printStackTrace();
+
+            LOGGER.error(e);
         }
 
         return list;
@@ -114,4 +140,5 @@ public class TourDAOImpl implements TourDAO{
     public int delete(Tour entity) {
         throw new NotImplementedException();
     }
+
 }
