@@ -3,12 +3,10 @@ package service.impl;
 import model.dao.impl.LoginDAOImpl;
 import model.dao.impl.UserDAOImpl;
 import model.pojo.User;
-//import org.apache.logging.log4j..PropertyConfigurator;
+import model.utils.Valid;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import service.interfaces.UserService;
-
-import java.util.List;
 
 /**
  * Created by admin on 20.04.2017.
@@ -20,19 +18,19 @@ public class UserServiceImpl implements UserService {
     private UserDAOImpl userDAO = new UserDAOImpl();
 
     @Override
-    public Integer addUser(User user) {
+    public Valid.Error addUser(User user) {
 
         LOGGER.debug("UserService. addUser.");
 
         if(user.getLogin() == ""){
 
             LOGGER.debug("Empty login put.");
-            return -1;
+            return Valid.Error.EmptyLogin;
 
         }else if(user.getPassword() == ""){
 
             LOGGER.debug("Empty password put.");
-            return 1;
+            return Valid.Error.EmptyPassword;
 
         }else{
 
@@ -42,12 +40,12 @@ public class UserServiceImpl implements UserService {
 
                 LOGGER.debug("Add new user:" + user.getLogin());
                 userDAO.insert(user);
-                return 0;
+                return Valid.Error.Correct;
 
             }else{
 
                 LOGGER.debug("User: " + user.getLogin() + " is already exists.");
-                return null;
+                return Valid.Error.Correct;
             }
 
         }

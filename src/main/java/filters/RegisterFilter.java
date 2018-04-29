@@ -1,10 +1,8 @@
 package filters;
 
 
-import connector.HelloServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -35,12 +33,10 @@ public class RegisterFilter implements Filter {
 
             }  catch (IOException e) {
 
-                LOGGER.error("IOException. RegisterFilter.doFilter().");
-                e.printStackTrace();
+                LOGGER.error("IOException. RegisterFilter.doFilter().", e);
             } catch (ServletException e) {
 
-                LOGGER.error("ServletException. RegisterFilter.doFilter().");
-                e.printStackTrace();
+                LOGGER.error("ServletException. RegisterFilter.doFilter().", e);
             }
 
         }else{
@@ -52,8 +48,7 @@ public class RegisterFilter implements Filter {
                         .sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + "/index");
             } catch (IOException e) {
 
-                LOGGER.error("IOException. RegisterFilter redirects to /index.");
-                e.printStackTrace();
+                LOGGER.error("IOException. RegisterFilter redirects to /index.", e);
             }
 
         }
@@ -61,7 +56,7 @@ public class RegisterFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig){
 
     }
 

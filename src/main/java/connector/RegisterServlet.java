@@ -1,6 +1,7 @@
 package connector;
 
 import model.pojo.User;
+import model.utils.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.impl.LoginServiceImpl;
@@ -32,13 +33,11 @@ public class RegisterServlet extends HttpServlet {
 
         } catch (ServletException e) {
 
-            LOGGER.error("ServletException when RegisterServlet forwards to /register.jsp.");
-            e.printStackTrace();
+            LOGGER.error("ServletException when RegisterServlet forwards to /register.jsp.", e);
 
         } catch (IOException e) {
 
-            LOGGER.error("IOException when RegisterServlet forwards to /register.jsp.");
-            e.printStackTrace();
+            LOGGER.error("IOException when RegisterServlet forwards to /register.jsp.", e);
         }
 
     }
@@ -51,9 +50,9 @@ public class RegisterServlet extends HttpServlet {
         User user = new User(req.getParameter("login"), req.getParameter("password"));
 
         LOGGER.debug("RegisterServlet adds new user");
-        Integer state = userService.addUser(user);
+        Valid.Error state = userService.addUser(user);
 
-        if (state == null) {
+        if (state == Valid.Error.Exists) {
 
             req.setAttribute("errorMessage", "Such user already exists.");
 
@@ -63,20 +62,18 @@ public class RegisterServlet extends HttpServlet {
 
             } catch (ServletException e) {
 
-                LOGGER.error("ServletException when RegisterServlet forwards to /register.jsp.");
-                e.printStackTrace();
+                LOGGER.error("ServletException when RegisterServlet forwards to /register.jsp.", e);
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException when RegisterServlet forwards to /register.jsp.");
-                e.printStackTrace();
+                LOGGER.error("IOException when RegisterServlet forwards to /register.jsp.", e);
             }
 
         } else {
 
             switch (state) {
 
-                case 0: {
+                case Correct: {
 
                     req.getSession().setAttribute("userName", user.getLogin());
                     User user1 = loginService.auth(user.getLogin(), user.getPassword());
@@ -88,14 +85,13 @@ public class RegisterServlet extends HttpServlet {
 
                     } catch (IOException e) {
 
-                        LOGGER.error("IOException when RegisterServlet redirects to /tour.");
-                        e.printStackTrace();
+                        LOGGER.error("IOException when RegisterServlet redirects to /tour.", e);
                     }
 
                     break;
                 }
 
-                case 1: {
+                case EmptyPassword: {
 
                     req.setAttribute("errorMessage", new String("Empty Password."));
 
@@ -105,19 +101,17 @@ public class RegisterServlet extends HttpServlet {
 
                     } catch (ServletException e) {
 
-                        LOGGER.error("ServletException when RegisterServlet forwards to /register.jsp.");
-                        e.printStackTrace();
+                        LOGGER.error("ServletException when RegisterServlet forwards to /register.jsp.", e);
 
                     } catch (IOException e) {
 
-                        LOGGER.error("IOException when RegisterServlet forwards to /register.jsp.");
-                        e.printStackTrace();
+                        LOGGER.error("IOException when RegisterServlet forwards to /register.jsp.", e);
                     }
 
                     break;
                 }
 
-                case -1: {
+                case EmptyLogin: {
 
                     req.setAttribute("errorMessage", new String("Empty Login."));
 
@@ -127,13 +121,11 @@ public class RegisterServlet extends HttpServlet {
 
                     } catch (ServletException e) {
 
-                        LOGGER.error("ServletException when RegisterServlet forwards to /register.jsp.");
-                        e.printStackTrace();
+                        LOGGER.error("ServletException when RegisterServlet forwards to /register.jsp.", e);
 
                     } catch (IOException e) {
 
-                        LOGGER.error("IOException when RegisterServlet forwards to /register.jsp.");
-                        e.printStackTrace();
+                        LOGGER.error("IOException when RegisterServlet forwards to /register.jsp.",e);
                     }
 
                     break;

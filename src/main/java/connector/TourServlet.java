@@ -45,13 +45,11 @@ public class TourServlet extends HttpServlet {
 
         } catch (ServletException e) {
 
-            LOGGER.error("ServletException when TourServlet forwards to /tours.jsp.");
-            e.printStackTrace();
+            LOGGER.error("ServletException when TourServlet forwards to /tours.jsp.",e);
 
         } catch (IOException e) {
 
-            LOGGER.error("IOException when TourServlet forwards to /tours.jsp.");
-            e.printStackTrace();
+            LOGGER.error("IOException when TourServlet forwards to /tours.jsp.",e);
         }
 
     }
@@ -76,8 +74,7 @@ public class TourServlet extends HttpServlet {
 
             }catch(NumberFormatException e){
 
-                LOGGER.error("NumberFormatException when TourServlet doPost. userId = " + userId);
-                e.printStackTrace();
+                LOGGER.error("NumberFormatException when TourServlet doPost. userId = " + userId, e);
 
             }
 
@@ -87,8 +84,7 @@ public class TourServlet extends HttpServlet {
 
             }catch(NumberFormatException e){
 
-                LOGGER.error("NumberFormatException when TourServlet doPost tourId = " + tourId);
-                e.printStackTrace();
+                LOGGER.error("NumberFormatException when TourServlet doPost tourId = " + tourId, e);
             }
 
             if(userId > 0 && tourId > 0) {
@@ -102,8 +98,7 @@ public class TourServlet extends HttpServlet {
 
                 } catch (IOException e) {
 
-                    LOGGER.error("IOException when OrderServlet redirects to /order.");
-                    e.printStackTrace();
+                    LOGGER.error("IOException when OrderServlet redirects to /order.", e);
                 }
 
                 return;
@@ -123,8 +118,7 @@ public class TourServlet extends HttpServlet {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException when OrderServlet redirects to /login.");
-                e.printStackTrace();
+                LOGGER.error("IOException when OrderServlet redirects to /login.", e);
             }
 
         }else {
@@ -156,8 +150,7 @@ public class TourServlet extends HttpServlet {
 
                     } catch (IOException e) {
 
-                        LOGGER.error("IOException when OrderServlet redirects to /login.");
-                        e.printStackTrace();
+                        LOGGER.error("IOException when OrderServlet redirects to /login.", e);
                     }
 
                     return;
@@ -193,13 +186,11 @@ public class TourServlet extends HttpServlet {
 
                 } catch (ServletException e) {
 
-                    LOGGER.error("ServletException when TourServlet forwards to /tour.jsp.");
-                    e.printStackTrace();
+                    LOGGER.error("ServletException when TourServlet forwards to /tour.jsp.", e);
 
                 } catch (IOException e) {
 
-                    LOGGER.error("IOException when TourServlet forwards to /tour.jsp.");
-                    e.printStackTrace();
+                    LOGGER.error("IOException when TourServlet forwards to /tour.jsp.", e);
                 }
 
             } else {
@@ -210,8 +201,7 @@ public class TourServlet extends HttpServlet {
 
                 } catch (IOException e) {
 
-                    LOGGER.error("IOException when TourServlet redirects to /tour.");
-                    e.printStackTrace();
+                    LOGGER.error("IOException when TourServlet redirects to /tour.", e);
                 }
 
             }

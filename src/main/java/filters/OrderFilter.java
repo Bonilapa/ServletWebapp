@@ -1,10 +1,8 @@
 package filters;
 
 
-import connector.HelloServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -34,12 +32,10 @@ public class OrderFilter implements Filter {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException. OrderFilter.doFilter().");
-                e.printStackTrace();
+                LOGGER.error("IOException. OrderFilter.doFilter().", e);
             } catch (ServletException e) {
 
-                LOGGER.error("ServletException. OrderFilter.doFilter().");
-                e.printStackTrace();
+                LOGGER.error("ServletException. OrderFilter.doFilter().", e);
             }
 
         }else{
@@ -52,8 +48,7 @@ public class OrderFilter implements Filter {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException. OrderFilter redirects to /login.");
-                e.printStackTrace();
+                LOGGER.error("IOException. OrderFilter redirects to /login.", e);
             }
         }
     }

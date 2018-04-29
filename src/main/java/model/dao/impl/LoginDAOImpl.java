@@ -24,24 +24,22 @@ public class LoginDAOImpl implements LoginDAO {
         User user = null;
         String sql = "SELECT * FROM Users WHERE Login = ? AND Password = ?;";
 
-        try {
+        LOGGER.debug("Attempt to take user "+login+" from table Users");
 
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
-
             resultSet.next();
             user = new User(resultSet.getInt("id"), resultSet.getString("login"),
                     resultSet.getString("password"));
 
-            LOGGER.debug("Attempt to take user "+login+" from table Users");
             resultSet.close();
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            LOGGER.debug(e);
+            LOGGER.error("SQLException ", e);
         }
         return user;
     }
@@ -53,19 +51,15 @@ public class LoginDAOImpl implements LoginDAO {
         User user = null;
         String sql = "SELECT * FROM Users WHERE Login = ?;";
 
-        try {
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        LOGGER.debug("Take user " + login + " from table Users");
+
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
-
-            LOGGER.debug("Take user " + login + " from table Users");
-
             ResultSet resultSet = statement.executeQuery();
-
             resultSet.next();
             user = new User(resultSet.getInt("id"), resultSet.getString("login"),
                     resultSet.getString("password"));
-
 
             resultSet.close();
             statement.close();
@@ -73,7 +67,7 @@ public class LoginDAOImpl implements LoginDAO {
 
         } catch (SQLException e) {
 
-            LOGGER.error(e);
+            LOGGER.error("SQLException ", e);
         }
 
         return user;

@@ -1,19 +1,13 @@
 package model.dao.impl;
 
-import connector.LoginServlet;
 import model.dao.interfaces.UserDAO;
 import model.pojo.User;
 import model.utils.DataSourceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-//import org.apache.log4j.PropertyConfigurator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * Created by admin on 20.04.2017.
@@ -30,17 +24,14 @@ public class UserDAOImpl implements UserDAO {
         User user = null;
         String sql = "SELECT * FROM Users WHERE Login = ? AND Password = ?;";
 
-        try {
+        LOGGER.debug("Get user with login: " + login + "; and password: " + password + "; from Users");
 
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
+
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
             statement.setString(2, password);
-
-            LOGGER.debug("Get user with login: " + login + "; and password: " + password + "; from Users");
-
             ResultSet resultSet = statement.executeQuery();
-
             resultSet.next();
             user = new User(resultSet.getInt("id"), resultSet.getString("login"),
                     resultSet.getString("password"));
@@ -51,7 +42,7 @@ public class UserDAOImpl implements UserDAO {
 
         } catch (SQLException e) {
 
-            LOGGER.error(e);
+            LOGGER.error("SQLException", e);
         }
 
         return user;
@@ -63,22 +54,19 @@ public class UserDAOImpl implements UserDAO {
         LOGGER.debug("UserDAO. insert.");
         String sql = "INSERT INTO users(Login, Password) VALUES (?, ?);";
 
-        try {
+        LOGGER.debug("Set user with login: " + entity.getLogin() + "; and password: " + entity.getPassword() + "; into Users");
 
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPassword());
-
-            LOGGER.debug("Set user with login: " + entity.getLogin() + "; and password: " + entity.getPassword() + "; into Users");
-
             statement.execute();
 
             statement.close();
             connection.close();
         } catch (SQLException e) {
 
-            LOGGER.error(e);
+            LOGGER.error("SQLException ",e);
         }
     }
 

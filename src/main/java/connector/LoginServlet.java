@@ -30,13 +30,11 @@ public class LoginServlet extends HttpServlet {
 
         } catch (ServletException e) {
 
-            LOGGER.error("ServletException when LoginServlet forwards to /login.jsp.");
-            e.printStackTrace();
+            LOGGER.error("ServletException when LoginServlet forwards to /login.jsp.", e);
 
         } catch (IOException e) {
 
-            LOGGER.error("IOEException when LoginServlet forwards to /login.jsp.");
-            e.printStackTrace();
+            LOGGER.error("IOEException when LoginServlet forwards to /login.jsp.", e);
         }
 
     }
@@ -59,8 +57,7 @@ public class LoginServlet extends HttpServlet {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException when LoginServlet redirects to /tour.");
-                e.printStackTrace();
+                LOGGER.error("IOException when LoginServlet redirects to /tour.", e);
             }
 
         } else {
@@ -73,13 +70,11 @@ public class LoginServlet extends HttpServlet {
 
             } catch (ServletException e) {
 
-                LOGGER.error("ServletException when LoginServlet forwards to /login.jsp.");
-                e.printStackTrace();
+                LOGGER.error("ServletException when LoginServlet forwards to /login.jsp.", e);
 
             } catch (IOException e) {
 
-                LOGGER.error("IOEException when LoginServlet forwards to /login.jsp.");
-                e.printStackTrace();
+                LOGGER.error("IOEException when LoginServlet forwards to /login.jsp.", e);
             }
 
         }

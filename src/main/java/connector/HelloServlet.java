@@ -34,8 +34,7 @@ public class HelloServlet extends HttpServlet {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOEEXception when HelleServlet redirects to /login.");
-                e.printStackTrace();
+                LOGGER.error("IOEXception when HelleServlet redirects to /login.", e);
 
             }
         }else {
@@ -45,13 +44,11 @@ public class HelloServlet extends HttpServlet {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException when HelloServlet forwards to index.jsp dispatcher.");
-                e.printStackTrace();
+                LOGGER.error("IOException when HelloServlet forwards to index.jsp dispatcher.", e);
 
             } catch (ServletException e) {
 
-                LOGGER.error("ServletException when HelloServlet forwards to index.jsp dispatcher.");
-                e.printStackTrace();
+                LOGGER.error("ServletException when HelloServlet forwards to index.jsp dispatcher.", e);
 
             }
 
@@ -75,8 +72,7 @@ public class HelloServlet extends HttpServlet {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException when HelloServlet redirects to /login.");
-                e.printStackTrace();
+                LOGGER.error("IOException when HelloServlet redirects to /login.", e);
 
             }
 
@@ -88,8 +84,7 @@ public class HelloServlet extends HttpServlet {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException when HelloServlet redirects to /tour.");
-                e.printStackTrace();
+                LOGGER.error("IOException when HelloServlet redirects to /tour.", e);
 
             }
 

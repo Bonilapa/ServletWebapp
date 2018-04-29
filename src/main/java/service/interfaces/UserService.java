@@ -1,6 +1,7 @@
 package service.interfaces;
 
 import model.pojo.User;
+import model.utils.Valid;
 
 
 /**
@@ -8,5 +9,5 @@ import model.pojo.User;
  */
 public interface UserService<E> {
 
-    Integer addUser(User user);
+    Valid.Error addUser(User user);
 }

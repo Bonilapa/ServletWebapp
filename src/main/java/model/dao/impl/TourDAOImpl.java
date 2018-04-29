@@ -2,7 +2,6 @@ package model.dao.impl;
 
 import model.dao.interfaces.TourDAO;
 import model.pojo.Tour;
-import model.pojo.User;
 import model.utils.DataSourceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,16 +23,12 @@ public class TourDAOImpl implements TourDAO{
         Tour tour = null;
         String sql = "SELECT * FROM tours WHERE ID = ?;";
 
-        try {
+        LOGGER.debug("Get tour with id: " + id + " from Tours");
 
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
-
-            LOGGER.debug("Get tour with id: " + id + " from Tours");
-
             ResultSet resultSet = statement.executeQuery();
-
             resultSet.next();
             tour = new Tour(resultSet.getInt("id"),
                     resultSet.getString("name"),
@@ -47,7 +42,7 @@ public class TourDAOImpl implements TourDAO{
 
         } catch (SQLException e) {
 
-            LOGGER.error(e);
+            LOGGER.error("SQLException ", e);
         }
 
         return tour;
@@ -60,16 +55,11 @@ public class TourDAOImpl implements TourDAO{
 
         int tourAmount = 0;
         String sql = "SELECT * FROM table ORDER BY id DESC LIMIT 1";
+        LOGGER.debug("Get tour amount from Tours");
 
-        try {
-
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
-
-            LOGGER.debug("Get tour amount from Tours");
-
             ResultSet resultSet = statement.executeQuery();
-
             resultSet.next();
             tourAmount = resultSet.getInt("id");
 
@@ -79,7 +69,7 @@ public class TourDAOImpl implements TourDAO{
 
         } catch (SQLException e) {
 
-            LOGGER.debug(e);
+            LOGGER.error("ESLException ", e);
         }
 
         return tourAmount;
@@ -92,15 +82,11 @@ public class TourDAOImpl implements TourDAO{
 
         List<Tour> list = new ArrayList<>();
 
-        try {
+        LOGGER.debug("Get all tours from Tours");
 
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             Statement statement = connection.createStatement();
-
-            LOGGER.debug("Get all tours from Tours");
-
             ResultSet resultSet = statement.executeQuery("SELECT * FROM tours;");
-
             while (resultSet.next()) {
                 Tour tour = new Tour(resultSet.getInt("id"),
                         resultSet.getString("name"),
@@ -115,7 +101,7 @@ public class TourDAOImpl implements TourDAO{
 
         } catch (SQLException e) {
 
-            LOGGER.error(e);
+            LOGGER.error("SQKException ", e);
         }
 
         return list;

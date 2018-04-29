@@ -24,17 +24,13 @@ public class OrderDAOImpl implements OrderDAO {
         Tour tour = null;
         String sql = "SELECT tours.* FROM tours, orders WHERE orders.userId =  ? AND orders.tourId = ? AND orders.tourId=tours.id;";
 
-        try {
+        LOGGER.debug("Get tour: " + tourId + " for userId: " + userId);
 
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userId);
             statement.setInt(2, tourId);
-
-            LOGGER.debug("Get tour: " + tourId + " for userId: " + userId);
-
             ResultSet resultSet = statement.executeQuery();
-
             resultSet.next();
             tour = new Tour(
                     resultSet.getInt("id"),
@@ -49,7 +45,7 @@ public class OrderDAOImpl implements OrderDAO {
 
         } catch (SQLException e) {
 
-            LOGGER.error(e);
+            LOGGER.error("SQLEException ", e);
         }
 
         return tour;
@@ -63,16 +59,12 @@ public class OrderDAOImpl implements OrderDAO {
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT tours.* FROM tours, orders WHERE userId = ? AND tours.ID = orders.tourId;";
 
-        try {
+        LOGGER.debug("Get all tours for userId: " + userId);
 
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userId);
-
-            LOGGER.debug("Get all tours for userId: " + userId);
-
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 Tour tour = new Tour(resultSet.getInt("id"),
                         resultSet.getString("name"),
@@ -87,7 +79,7 @@ public class OrderDAOImpl implements OrderDAO {
 
         } catch (SQLException e) {
 
-            LOGGER.error(e);
+            LOGGER.error("SQLException ", e);
         }
 
         return list;
@@ -100,15 +92,12 @@ public class OrderDAOImpl implements OrderDAO {
 
         String sql = "INSERT INTO orders(tourId, userId) VALUES (?, ?);";
 
-        try {
+        LOGGER.debug("Set tour: " + entity.getTour() + " for userId: " + userId);
 
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
+        try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, entity.getTour().getId());
             statement.setInt(2, userId);
-
-            LOGGER.debug("Set tour: " + entity.getTour() + " for userId: " + userId);
-
             statement.execute();
 
             statement.close();
@@ -116,7 +105,7 @@ public class OrderDAOImpl implements OrderDAO {
 
         } catch (SQLException e) {
 
-            LOGGER.error(e);
+            LOGGER.error("SQLException ", e);
             return false;
         }
 

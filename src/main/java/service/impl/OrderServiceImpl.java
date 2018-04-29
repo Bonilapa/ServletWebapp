@@ -1,8 +1,6 @@
 package service.impl;
 
 import model.dao.impl.OrderDAOImpl;
-import model.dao.impl.TourDAOImpl;
-import model.dao.interfaces.OrderDAO;
 import model.pojo.Order;
 import model.pojo.Tour;
 import org.apache.logging.log4j.LogManager;

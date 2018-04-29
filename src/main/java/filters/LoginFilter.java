@@ -1,10 +1,8 @@
 package filters;
 
 
-import connector.HelloServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -34,13 +32,11 @@ public class LoginFilter implements Filter {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException. LoginFilter.doFilter().");
-                e.printStackTrace();
+                LOGGER.error("IOException. LoginFilter.doFilter().", e);
 
             } catch (ServletException e) {
 
-                LOGGER.error("ServletException. LoginFilter.doFilter().");
-                e.printStackTrace();
+                LOGGER.error("ServletException. LoginFilter.doFilter().", e);
             }
 
         }else{
@@ -54,8 +50,7 @@ public class LoginFilter implements Filter {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException. LoginFilter redirects to /index.");
-                e.printStackTrace();
+                LOGGER.error("IOException. LoginFilter redirects to /index.", e);
             }
 
         }

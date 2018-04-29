@@ -35,12 +35,10 @@ public class TourFilter implements Filter {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException. TourFilter.doFilter().");
-                e.printStackTrace();
+                LOGGER.error("IOException. TourFilter.doFilter().", e);
             } catch (ServletException e) {
 
-                LOGGER.error("ServletException. TourFilter.doFilter().");
-                e.printStackTrace();
+                LOGGER.error("ServletException. TourFilter.doFilter().", e);
             }
 
         } else {
@@ -54,14 +52,13 @@ public class TourFilter implements Filter {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOException. TourFilter redirects to /login.");
-                e.printStackTrace();
+                LOGGER.error("IOException. TourFilter redirects to /login.", e);
             }
         }
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig){
 
     }
 

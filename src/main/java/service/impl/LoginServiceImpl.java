@@ -1,13 +1,10 @@
 package service.impl;
 
 import model.dao.impl.LoginDAOImpl;
-import model.dao.impl.UserDAOImpl;
 import model.pojo.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.interfaces.LoginService;
-
-import java.util.List;
 
 public class LoginServiceImpl implements LoginService{
 

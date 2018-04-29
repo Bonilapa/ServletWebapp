@@ -43,13 +43,11 @@ public class OrderServlet extends HttpServlet {
 
         } catch (ServletException e) {
 
-            LOGGER.error("ServletException when OrderServlet forwards to /orders.jsp.");
-            e.printStackTrace();
+            LOGGER.error("ServletException when OrderServlet forwards to /orders.jsp.", e);
 
         } catch (IOException e) {
 
-            LOGGER.error("IOEException when OrderServlet forwards to /orders.jsp.");
-            e.printStackTrace();
+            LOGGER.error("IOEException when OrderServlet forwards to /orders.jsp.", e);
         }
 
     }
@@ -72,8 +70,7 @@ public class OrderServlet extends HttpServlet {
 
             } catch (IOException e) {
 
-                LOGGER.error("IOEException when OrderServlet redirects to /login.jsp.");
-                e.printStackTrace();
+                LOGGER.error("IOEException when OrderServlet redirects to /login.jsp.", e);
             }
 
         }else {
@@ -104,8 +101,7 @@ public class OrderServlet extends HttpServlet {
 
                     } catch (IOException e) {
 
-                        LOGGER.error("Unknown tourId. IOEException when OrderServlet redirects to /error.");
-                        e.printStackTrace();
+                        LOGGER.error("Unknown tourId. IOEException when OrderServlet redirects to /error.", e);
                     }
 
                     return;
@@ -142,13 +138,11 @@ public class OrderServlet extends HttpServlet {
 
                 } catch (ServletException e) {
 
-                    LOGGER.error("ServletException when LoginServlet forwards to /order.jsp.");
-                    e.printStackTrace();
+                    LOGGER.error("ServletException when LoginServlet forwards to /order.jsp.", e);
 
                 } catch (IOException e) {
 
-                    LOGGER.error("IOException when LoginServlet forwards to /order.jsp.");
-                    e.printStackTrace();
+                    LOGGER.error("IOException when LoginServlet forwards to /order.jsp.", e);
                 }
 
             } else {
@@ -159,8 +153,7 @@ public class OrderServlet extends HttpServlet {
 
                 } catch (IOException e) {
 
-                    LOGGER.error("IOException when LoginServlet redirects to /order.");
-                    e.printStackTrace();
+                    LOGGER.error("IOException when LoginServlet redirects to /order.", e);
                 }
 
             }

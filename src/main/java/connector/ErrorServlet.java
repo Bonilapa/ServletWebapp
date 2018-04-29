@@ -26,13 +26,11 @@ public class ErrorServlet extends HttpServlet {
 
         } catch (ServletException e) {
 
-            LOGGER.error("ServletException when ErrorServlet forwards to /error.jsp");
-            e.printStackTrace();
+            LOGGER.error("ServletException when ErrorServlet forwards to /error.jsp", e);
 
         } catch (IOException e) {
 
-            LOGGER.error("IOEException when ErrorServlet forwards to /error.jsp");
-            e.printStackTrace();
+            LOGGER.error("IOEException when ErrorServlet forwards to /error.jsp", e);
         }
 
     }
@@ -47,13 +45,11 @@ public class ErrorServlet extends HttpServlet {
 
         } catch (ServletException e) {
 
-            LOGGER.error("ServletException when ErrorServlet super.forwards to /error.jsp");
-            e.printStackTrace();
+            LOGGER.error("ServletException when ErrorServlet super.forwards to /error.jsp", e);
 
         } catch (IOException e) {
 
-            LOGGER.error("IOEException when ErrorServlet super.forwards to /error.jsp");
-            e.printStackTrace();
+            LOGGER.error("IOEException when ErrorServlet super.forwards to /error.jsp", e);
         }
 
     }
